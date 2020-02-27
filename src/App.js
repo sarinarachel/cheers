@@ -1,7 +1,7 @@
 import React, {useContext, useState} from 'react';
 import './App.css';
 import { Box, Button, Grommet, TextInput, ThemeContext } from 'grommet';
-import { Filter, Search, Update } from "grommet-icons";
+import { Image, Bar, Cafeteria, Filter, Search, Update } from "grommet-icons";
 import { MDBIcon } from 'mdbreact';
 
 const context = React.createContext()
@@ -36,32 +36,40 @@ function App() {
       <Header />
       <Body />
     </Grommet>
+    
   </context.Provider>
 }
 
 function Header(){
   const ctx = useContext(context)
-  const {searchTerm} = ctx
+  const {loading, searchTerm} = ctx
   return <Box> 
     <Box tag='header' direction='row' align='center' justify='between' pad='medium'>
       <Button 
         className="cocktail"
+        icon={<Bar />}
         plain={false} 
         onClick={() => {}} 
-      />
+      >
+      </Button>
+
       <Button 
         className="ingredient"
         plain={false} 
+        icon={<Cafeteria />}
         style={{ marginLeft: '8px', marginRight: '12px' }}
-        onClick={() => {}} 
-      >
-        <MDBIcon icon="cocktail" />
-      </Button>
+        onClick={()=> {}}
+      />
+
       <TextInput
         className="input"
         placeholder="Search Cocktails"
         value={searchTerm}
+        disabled={loading}
         onChange={e=> ctx.set({searchTerm: e.target.value})}
+        onKeyPress={e=>{
+          if(e.key==='Enter' && searchTerm) search(ctx)
+        }}
       />
       <Button 
         className="search"
@@ -70,7 +78,7 @@ function Header(){
         primary
         color='#FFCA58'
         style={{ marginLeft: '8px' }}
-        onClick={() => {}} 
+        onClick={() => search(ctx)} 
       />
     </Box>
     <ThemeContext.Extend value={{ 
@@ -108,9 +116,53 @@ function Header(){
 
 function Body(){
   const ctx = useContext(context)
-  return <Box background="#E8E8E8" height="84.7vh" pad="medium"> 
-    Cocktails
-  </Box>
+  const {error, drinks} = ctx
+  if (drinks) {
+    console.log(drinks)
+    return <Box background="#E8E8E8" overflow="scroll" pad="medium"> 
+        {drinks.map((drink,i)=> <Drink key={i} {...drink} />)}
+    </Box>
+  } return <Box background="#E8E8E8" height="84.7vh" pad="medium"></Box>
+}
+
+async function search({searchTerm, set}){
+  try {
+    const term = searchTerm
+    set({error:'', loading:true})
+    const url = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${term}`
+    console.log(url)
+    const r = await fetch(url)
+    console.log(r)
+    const drinkData = await r.json()
+    if(!drinkData['drinks'][0]){
+      return set({error:'No drink matching that query'})
+    }
+    set({drinks:drinkData['drinks'], loading:false, searchTerm:''})
+  } catch(e) {
+    set({error: e.message})
+  }
+}
+
+function Drink(props){
+  console.log("StrDrinkThumb " + props.strDrinkThumb)
+  return (
+    <Box background="white" direction="row" height="171px" margin="small" pad="medium">
+      {/* <Box height="medium" width="large">
+        <Image
+          src="http://hdwpro.com/wp-content/uploads/2017/01/3D-Cool-Image.jpg"
+          fit="cover"
+        />
+      </Box> */}
+      <img 
+        alt="drink"
+        src={props.strDrinkThumb}
+        style={{ height: '142px', width: '142px' }}
+      />
+      <Box direction="column" margin="small">
+        {props.strDrink}
+      </Box>
+    </Box>
+  )
 }
 
 export default App;
