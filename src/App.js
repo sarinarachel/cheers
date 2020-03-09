@@ -1,6 +1,6 @@
 import React, {useContext, useState} from 'react';
 import './App.css';
-import { Box, Button, Grommet, Heading, Paragraph, ResponsiveContext, Text, TextInput, ThemeContext } from 'grommet';
+import { Box, Button, Grommet, Heading, Layer, Paragraph, ResponsiveContext, Text, TextInput, ThemeContext } from 'grommet';
 import { Bar, Cafeteria, Filter, Search, Update } from "grommet-icons";
 // import { MDBIcon } from 'mdbreact';
 
@@ -20,7 +20,7 @@ const customTheme = {
 
 function App() {
   const [state, setState] = useState({
-    searchTerm:'', mode:'cocktail'
+    searchTerm:'', mode:'cocktail', show:false, curDrink:[]
   })
   return <context.Provider value={{
     ...state, 
@@ -28,6 +28,7 @@ function App() {
       return{...current, ...v}})
   }}>
     <Grommet theme={customTheme}>
+      <Overlay />
       <Header />
       <Body />
     </Grommet>
@@ -77,6 +78,7 @@ function Header(){
         color='#FFCA58'
         style={{ marginLeft: '4px' }}
         onClick={() => search(ctx)} 
+        disabled={!searchTerm}
       />
     </Box>
     <ThemeContext.Extend value={{ 
@@ -116,7 +118,13 @@ function Body(){
   const ctx = useContext(context)
   const {error, drinks} = ctx
   if (drinks) {
-    return <Box background="#E8E8E8" overflow="scroll" pad="medium" style={{minHeight :'84.7vh'}}> 
+    return <Box background="#E8E8E8" 
+      wrap={true} 
+      overflow="scroll" 
+      pad="medium" 
+      direction="row"
+      alignContent="start"
+      style={{minHeight :'84.7vh'}}> 
         {drinks.map((drink,i)=> <Drink key={i} {...drink} />)}
     </Box>
   } return <Box background="#E8E8E8" height="84.7vh" pad="medium">
@@ -160,28 +168,32 @@ async function random({set}){
 }
 
 function Drink(props){
+  const ctx = useContext(context)
+  const ingredients= getIngredients(props)
   return (
     <Box 
+      width="medium"
       round="4px" 
       elevation="medium" 
       background="white" 
       direction="row" 
-      height="171px" 
+      height="small" 
       margin="small" 
       pad="medium"
-      onClick={() => {}}>
+      onClick={() => {ctx.set({show:true, curDrink:props})}}>
       <img 
         alt="drink"
         src={props.strDrinkThumb}
-        style={{ objectFit: "cover", height: '142px', width: '142px', borderRadius: '4px' }}
+        style={{ objectFit: "cover", width: '142px', borderRadius: '4px' }}
       />
+      {ingredients}
       <Box overflow="hidden" direction="column" margin={{ "left": "medium" }}>
-        <Heading size="small" margin={{"top": "none", "bottom": "small"}}> {props.strDrink} </Heading>
+        <Heading size="26px" margin={{"top": "none", "bottom": "small"}}> {props.strDrink} </Heading>
         <Box wrap={true} direction="row" margin={{"bottom":"small"}}>
-          {props.strIngredient1 && <Box margin={{"vertical":"xsmall", "right":"xsmall"}} background="#3D138D" pad={{"vertical":"xsmall", "horizontal":"medium"}} round="100px">
+          {props.strIngredient1 && <Box responsive={false} margin={{"vertical":"xsmall", "right":"xsmall"}} background="#3D138D" pad={{"vertical":"4px", "horizontal":"10px"}} round="100px">
             <Text size="xsmall" weight="bold"> {props.strIngredient1} </Text>
           </Box>}
-          {props.strIngredient2 && <Box margin={{"vertical":"xsmall"}} background="#3D138D" pad={{"vertical":"xsmall", "horizontal":"medium"}} round="100px">
+          {props.strIngredient2 && <Box responsive={false} margin={{"vertical":"xsmall"}} background="#3D138D" pad={{"vertical":"4px", "horizontal":"10px"}} round="100px">
             <Text size="xsmall" weight="bold"> {props.strIngredient2} </Text>
           </Box>}
         </Box>
@@ -193,6 +205,53 @@ function Drink(props){
       </Box>
     </Box>
   )
+}
+
+//pass in drink array
+//{drinks.map((drink,i)=> <Drink key={i} {...drink} />)}
+function getIngredients(props) {
+  const drink = props
+  var ings = []
+  console.log(drink)
+  
+  return ings
+}
+
+function Overlay() {
+  const ctx = useContext(context)
+  const {show, curDrink} = ctx
+  return (
+    <Box>
+      {show && (
+        <Layer 
+          full="horizontal"
+          onEsc={() => ctx.set({show:false})}
+          onClickOutside={() => ctx.set({show:false})}
+        >
+          <Box margin="medium">
+            <Box wrap={true} direction="row" gap="medium" margin={{"bottom":"medium"}}>
+              <Box>
+                <Heading size="medium" margin={{"top": "none", "bottom": "small"}}> 
+                  {curDrink.strDrink} 
+                </Heading>
+                <img 
+                  alt="drink"
+                  src={curDrink.strDrinkThumb}
+                  style={{ objectFit: "cover", width: '330px', borderRadius: '4px' }}
+                />
+              </Box>
+              <Box>
+                <Paragraph>
+                  {curDrink.strInstructions}
+                </Paragraph>
+              </Box>
+            </Box>
+            <Button label="Back" onClick={() => ctx.set({show:false})} />
+          </Box>
+        </Layer>
+      )}
+    </Box>
+  );
 }
 
 export default App;
