@@ -232,87 +232,88 @@ function Overlay() {
                   style={{ objectFit: "cover", width: '330px', borderRadius: '4px' }}
                 />
               </Box>
-              <Box direction="row" wrap={true} align="center" width="medium">
-                {curDrink.strIngredient1 ? (
-                <Box margin="xsmall">
-                  <img src={"https://www.thecocktaildb.com/images/ingredients/" + curDrink.strIngredient1 + "-Small.png"}
-                    alt="ingredient"
-                    style={{ objectFit: "cover", width: '100px'}}>
-                  </img>
-                  <Box direction="column" align="center">
-                    <Text weight="bold">{curDrink.strIngredient1}</Text>
-                    <Text>{curDrink.strMeasure1}</Text>
+              <Box >
+                <Box direction="row" wrap={true} align="center" margin={{"top":"small"}}>
+                  {curDrink.strIngredient1 ? (
+                  <Box margin="xsmall">
+                    <img src={"https://www.thecocktaildb.com/images/ingredients/" + curDrink.strIngredient1 + "-Small.png"}
+                      alt="ingredient"
+                      style={{ objectFit: "cover", width: '100px'}}>
+                    </img>
+                    <Box direction="column" align="center">
+                      <Text weight="bold">{curDrink.strIngredient1}</Text>
+                      <Text>{curDrink.strMeasure1}</Text>
+                    </Box>
                   </Box>
-                </Box>
-                ) : null}
-                
-                {curDrink.strIngredient2 ? (
-                <Box margin="xsmall">
-                  <img src={"https://www.thecocktaildb.com/images/ingredients/" + curDrink.strIngredient2 + "-Small.png"}
-                    alt="ingredient"
-                    style={{ objectFit: "cover", width: '100px'}}>
-                  </img>
-                  <Box direction="column" align="center">
-                    <Text weight="bold">{curDrink.strIngredient2}</Text>
-                    <Text>{curDrink.strMeasure2}</Text>
+                  ) : null}
+                  
+                  {curDrink.strIngredient2 ? (
+                  <Box margin="xsmall">
+                    <img src={"https://www.thecocktaildb.com/images/ingredients/" + curDrink.strIngredient2 + "-Small.png"}
+                      alt="ingredient"
+                      style={{ objectFit: "cover", width: '100px'}}>
+                    </img>
+                    <Box direction="column" align="center">
+                      <Text weight="bold">{curDrink.strIngredient2}</Text>
+                      <Text>{curDrink.strMeasure2}</Text>
+                    </Box>
                   </Box>
-                </Box>
-                ) : null}
-                
-                {curDrink.strIngredient3 ? (
-                <Box margin="xsmall">
-                  <img src={"https://www.thecocktaildb.com/images/ingredients/" + curDrink.strIngredient3 + "-Small.png"}
-                    alt="ingredient"
-                    style={{ objectFit: "cover", width: '100px'}}>
-                  </img>
-                  <Box direction="column" align="center">
-                    <Text weight="bold">{curDrink.strIngredient3}</Text>
-                    <Text>{curDrink.strMeasure3}</Text>
+                  ) : null}
+                  
+                  {curDrink.strIngredient3 ? (
+                  <Box margin="xsmall">
+                    <img src={"https://www.thecocktaildb.com/images/ingredients/" + curDrink.strIngredient3 + "-Small.png"}
+                      alt="ingredient"
+                      style={{ objectFit: "cover", width: '100px'}}>
+                    </img>
+                    <Box direction="column" align="center">
+                      <Text weight="bold">{curDrink.strIngredient3}</Text>
+                      <Text>{curDrink.strMeasure3}</Text>
+                    </Box>
                   </Box>
-                </Box>
-                ) : null}
+                  ) : null}
 
-                {curDrink.strIngredient4 ? (
-                <Box margin="xsmall">
-                  <img src={"https://www.thecocktaildb.com/images/ingredients/" + curDrink.strIngredient4 + "-Small.png"}
-                    alt="ingredient"
-                    style={{ objectFit: "cover", width: '100px'}}>
-                  </img>
-                  <Box direction="column" align="center">
-                    <Text weight="bold">{curDrink.strIngredient4}</Text>
-                    <Text>{curDrink.strMeasure4}</Text>
+                  {curDrink.strIngredient4 ? (
+                  <Box margin="xsmall">
+                    <img src={"https://www.thecocktaildb.com/images/ingredients/" + curDrink.strIngredient4 + "-Small.png"}
+                      alt="ingredient"
+                      style={{ objectFit: "cover", width: '100px'}}>
+                    </img>
+                    <Box direction="column" align="center">
+                      <Text weight="bold">{curDrink.strIngredient4}</Text>
+                      <Text>{curDrink.strMeasure4}</Text>
+                    </Box>
                   </Box>
-                </Box>
-                ) : null}
+                  ) : null}
 
-                {curDrink.strIngredient5 ? (
-                <Box margin="xsmall">
-                  <img src={"https://www.thecocktaildb.com/images/ingredients/" + curDrink.strIngredient5 + "-Small.png"}
-                    alt="ingredient"
-                    style={{ objectFit: "cover", width: '100px'}}>
-                  </img>
-                  <Box direction="column" align="center">
-                    <Text weight="bold">{curDrink.strIngredient5}</Text>
-                    <Text>{curDrink.strMeasure5}</Text>
+                  {curDrink.strIngredient5 ? (
+                  <Box margin="xsmall">
+                    <img src={"https://www.thecocktaildb.com/images/ingredients/" + curDrink.strIngredient5 + "-Small.png"}
+                      alt="ingredient"
+                      style={{ objectFit: "cover", width: '100px'}}>
+                    </img>
+                    <Box direction="column" align="center">
+                      <Text weight="bold">{curDrink.strIngredient5}</Text>
+                      <Text>{curDrink.strMeasure5}</Text>
+                    </Box>
                   </Box>
-                </Box>
-                ) : null}
+                  ) : null}
 
-                {curDrink.strIngredient6 ? (
-                <Box margin="xsmall">
-                  <img src={"https://www.thecocktaildb.com/images/ingredients/" + curDrink.strIngredient6 + "-Small.png"}
-                    alt="ingredient"
-                    style={{ objectFit: "cover", width: '100px'}}>
-                  </img>
-                  <Box direction="column" align="center">
-                    <Text weight="bold">{curDrink.strIngredient6}</Text>
-                    <Text>{curDrink.strMeasure6}</Text>
+                  {curDrink.strIngredient6 ? (
+                  <Box margin="xsmall">
+                    <img src={"https://www.thecocktaildb.com/images/ingredients/" + curDrink.strIngredient6 + "-Small.png"}
+                      alt="ingredient"
+                      style={{ objectFit: "cover", width: '100px'}}>
+                    </img>
+                    <Box direction="column" align="center">
+                      <Text weight="bold">{curDrink.strIngredient6}</Text>
+                      <Text>{curDrink.strMeasure6}</Text>
+                    </Box>
                   </Box>
+                  ) : null}
                 </Box>
-                ) : null}
-
                 <Paragraph>
-                  {curDrink.strInstructions}
+                    {curDrink.strInstructions}
                 </Paragraph>
               </Box>
             </Box>
