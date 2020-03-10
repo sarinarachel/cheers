@@ -2,6 +2,7 @@ import React, {useContext, useState} from 'react';
 import './App.css';
 import { Box, Button, Grommet, Heading, Layer, Paragraph, ResponsiveContext, Text, TextInput, ThemeContext } from 'grommet';
 import { Bar, Cafeteria, Filter, Search, Update } from "grommet-icons";
+import Start from "./startDrinks.js"
 // import { MDBIcon } from 'mdbreact';
 
 const context = React.createContext()
@@ -19,6 +20,7 @@ const customTheme = {
 };
 
 function App() {
+  console.log(Start)
   const [state, setState] = useState({
     searchTerm:'', mode:'cocktail', show:false, curDrink:[]
   })
@@ -124,11 +126,13 @@ function Body(){
       pad="medium" 
       direction="row"
       alignContent="start"
+      align="center"
       style={{minHeight :'84.7vh'}}> 
         {drinks.map((drink,i)=> <Drink key={i} {...drink} />)}
     </Box>
-  } return <Box background="#E8E8E8" height="84.7vh" pad="medium">
+  } return <Box align="center" background="#E8E8E8" height="84.7vh" pad="medium">
       {error && <div className="error">{error}</div>}
+      <Text>Search for cocktails above!</Text>
     </Box>
 }
 
@@ -169,7 +173,6 @@ async function random({set}){
 
 function Drink(props){
   const ctx = useContext(context)
-  const ingredients= getIngredients(props)
   return (
     <Box 
       width="medium"
@@ -186,7 +189,6 @@ function Drink(props){
         src={props.strDrinkThumb}
         style={{ objectFit: "cover", width: '142px', borderRadius: '4px' }}
       />
-      {ingredients}
       <Box overflow="hidden" direction="column" margin={{ "left": "medium" }}>
         <Heading size="26px" margin={{"top": "none", "bottom": "small"}}> {props.strDrink} </Heading>
         <Box wrap={true} direction="row" margin={{"bottom":"small"}}>
@@ -207,16 +209,6 @@ function Drink(props){
   )
 }
 
-//pass in drink array
-//{drinks.map((drink,i)=> <Drink key={i} {...drink} />)}
-function getIngredients(props) {
-  const drink = props
-  var ings = []
-  console.log(drink)
-  
-  return ings
-}
-
 function Overlay() {
   const ctx = useContext(context)
   const {show, curDrink} = ctx
@@ -229,18 +221,96 @@ function Overlay() {
           onClickOutside={() => ctx.set({show:false})}
         >
           <Box margin="medium">
-            <Box wrap={true} direction="row" gap="medium" margin={{"bottom":"medium"}}>
+            <Heading size="medium" margin={{"top": "none", "bottom": "small"}}> 
+              {curDrink.strDrink} 
+            </Heading>
+            <Box overflow="scroll" wrap={true} direction="row" gap="medium" margin={{"bottom":"medium"}}>
               <Box>
-                <Heading size="medium" margin={{"top": "none", "bottom": "small"}}> 
-                  {curDrink.strDrink} 
-                </Heading>
                 <img 
                   alt="drink"
                   src={curDrink.strDrinkThumb}
                   style={{ objectFit: "cover", width: '330px', borderRadius: '4px' }}
                 />
               </Box>
-              <Box>
+              <Box direction="row" wrap={true} align="center" width="medium">
+                {curDrink.strIngredient1 ? (
+                <Box margin="xsmall">
+                  <img src={"https://www.thecocktaildb.com/images/ingredients/" + curDrink.strIngredient1 + "-Small.png"}
+                    alt="ingredient"
+                    style={{ objectFit: "cover", width: '100px'}}>
+                  </img>
+                  <Box direction="column" align="center">
+                    <Text weight="bold">{curDrink.strIngredient1}</Text>
+                    <Text>{curDrink.strMeasure1}</Text>
+                  </Box>
+                </Box>
+                ) : null}
+                
+                {curDrink.strIngredient2 ? (
+                <Box margin="xsmall">
+                  <img src={"https://www.thecocktaildb.com/images/ingredients/" + curDrink.strIngredient2 + "-Small.png"}
+                    alt="ingredient"
+                    style={{ objectFit: "cover", width: '100px'}}>
+                  </img>
+                  <Box direction="column" align="center">
+                    <Text weight="bold">{curDrink.strIngredient2}</Text>
+                    <Text>{curDrink.strMeasure2}</Text>
+                  </Box>
+                </Box>
+                ) : null}
+                
+                {curDrink.strIngredient3 ? (
+                <Box margin="xsmall">
+                  <img src={"https://www.thecocktaildb.com/images/ingredients/" + curDrink.strIngredient3 + "-Small.png"}
+                    alt="ingredient"
+                    style={{ objectFit: "cover", width: '100px'}}>
+                  </img>
+                  <Box direction="column" align="center">
+                    <Text weight="bold">{curDrink.strIngredient3}</Text>
+                    <Text>{curDrink.strMeasure3}</Text>
+                  </Box>
+                </Box>
+                ) : null}
+
+                {curDrink.strIngredient4 ? (
+                <Box margin="xsmall">
+                  <img src={"https://www.thecocktaildb.com/images/ingredients/" + curDrink.strIngredient4 + "-Small.png"}
+                    alt="ingredient"
+                    style={{ objectFit: "cover", width: '100px'}}>
+                  </img>
+                  <Box direction="column" align="center">
+                    <Text weight="bold">{curDrink.strIngredient4}</Text>
+                    <Text>{curDrink.strMeasure4}</Text>
+                  </Box>
+                </Box>
+                ) : null}
+
+                {curDrink.strIngredient5 ? (
+                <Box margin="xsmall">
+                  <img src={"https://www.thecocktaildb.com/images/ingredients/" + curDrink.strIngredient5 + "-Small.png"}
+                    alt="ingredient"
+                    style={{ objectFit: "cover", width: '100px'}}>
+                  </img>
+                  <Box direction="column" align="center">
+                    <Text weight="bold">{curDrink.strIngredient5}</Text>
+                    <Text>{curDrink.strMeasure5}</Text>
+                  </Box>
+                </Box>
+                ) : null}
+
+                {curDrink.strIngredient6 ? (
+                <Box margin="xsmall">
+                  <img src={"https://www.thecocktaildb.com/images/ingredients/" + curDrink.strIngredient6 + "-Small.png"}
+                    alt="ingredient"
+                    style={{ objectFit: "cover", width: '100px'}}>
+                  </img>
+                  <Box direction="column" align="center">
+                    <Text weight="bold">{curDrink.strIngredient6}</Text>
+                    <Text>{curDrink.strMeasure6}</Text>
+                  </Box>
+                </Box>
+                ) : null}
+
                 <Paragraph>
                   {curDrink.strInstructions}
                 </Paragraph>
