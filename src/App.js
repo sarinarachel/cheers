@@ -101,7 +101,7 @@ function Header(){
           color="#E6E1F0"
           onClick={() => random(ctx)} 
         />
-        <Button
+        {/* <Button
           className="filter"
           primary
           icon={<Filter size='small' color="brand"/>}
@@ -109,7 +109,7 @@ function Header(){
           style={{ marginTop: '0px' }}
           color="#E6E1F0"
           onClick={() => {}} 
-        />
+        /> */}
       </Box>
     </ThemeContext.Extend>
   </Box>
@@ -125,9 +125,7 @@ function Body(){
       overflow="scroll" 
       pad="medium" 
       direction="row"
-      alignContent="start"
-      align="center"
-      style={{minHeight :'84.7vh'}}> 
+      style={{minHeight :'84.7vh', justifyContent : 'center'}}> 
         {drinks.map((drink,i)=> <Drink key={i} {...drink} />)}
     </Box>
   } return <Box align="center" background="#E8E8E8" height="84.7vh" pad="medium">
@@ -220,12 +218,13 @@ function Overlay() {
           onEsc={() => ctx.set({show:false})}
           onClickOutside={() => ctx.set({show:false})}
         >
-          <Box margin="medium">
-            <Heading size="medium" margin={{"top": "none", "bottom": "small"}}> 
+          <Box margin="medium" style={{justifyContent: 'center'}}>
+            
+            <Box overflow="scroll" wrap={true} direction="row" gap="medium" margin={{"bottom":"medium"}} style={{justifyContent: 'center'}}>
+              <Box>
+              <Heading size="medium" margin={{"top": "none", "bottom": "small"}} > 
               {curDrink.strDrink} 
             </Heading>
-            <Box overflow="scroll" wrap={true} direction="row" gap="medium" margin={{"bottom":"medium"}}>
-              <Box>
                 <img 
                   alt="drink"
                   src={curDrink.strDrinkThumb}
@@ -233,7 +232,7 @@ function Overlay() {
                 />
               </Box>
               <Box >
-                <Box direction="row" wrap={true} align="center" margin={{"top":"small"}}>
+                <Box direction="row" wrap={true} align="center" margin={{"top":"large"}}>
                   {curDrink.strIngredient1 ? (
                   <Box margin="xsmall">
                     <img src={"https://www.thecocktaildb.com/images/ingredients/" + curDrink.strIngredient1 + "-Small.png"}
@@ -317,7 +316,7 @@ function Overlay() {
                 </Paragraph>
               </Box>
             </Box>
-            <Button label="Back" onClick={() => ctx.set({show:false})} />
+            <Button label="Back" onClick={() => ctx.set({show:false})} width='50%'/>
           </Box>
         </Layer>
       )}
